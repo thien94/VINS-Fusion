@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- <include file="$(find realsense2_camera)/launch/rs_t265.launch"/> -->
+    <!-- <include file="$(find image_undistort)/launch/stereo_undistort.launch"/> -->
+    
+    <arg name="config_file" default="$(find vins)/../config/realsense_t265/realsense_t265_config.yaml" />
+
+    <node name="vins_estimator" pkg="vins" type="vins_node" output="screen" >
+      <param name="config_file" value="$(arg config_file)" />
+    </node>
+
+    <!-- <node name="rvizvisualisation" pkg="rviz" type="rviz" output="log" args="-d $(find vins)/../config/vins_rviz_config.rviz" /> -->
+
+    <include file="$(find uwb_orb_slam2_ros)/ros/launch/uwb_rviz.launch"/>
+
+    <!-- <node pkg="hector_trajectory_server" type="hector_trajectory_server" name="trajectory_server_leica" output="screen" ns="leica" >
+        <param name="/target_frame_name" value="/map" />
+        <param name="/source_frame_name" value="/leica_rel" />
+        <param name="/trajectory_update_rate" value="20.0" />
+        <param name="/trajectory_publish_rate" value="20.0" />
+    </node> -->
+</launch>

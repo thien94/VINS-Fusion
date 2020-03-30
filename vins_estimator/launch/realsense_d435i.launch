@@ -2,7 +2,7 @@
 <launch>
     <!-- <include file="$(find realsense2_camera)/launch/rs_t265.launch"/> -->
     
-    <arg name="config_file" default="$(find vins)/../config/realsense_t265/realsense_t265_config.yaml" />
+    <arg name="config_file" default="$(find vins)/../config/realsense_d435i/realsense_stereo_imu_config.yaml" />
 
     <node name="vins_estimator" pkg="vins" type="vins_node" output="screen" >
       <param name="config_file" value="$(arg config_file)" />
