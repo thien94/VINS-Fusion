@@ -131,8 +131,8 @@ void pubOdometry(const Estimator &estimator, const std_msgs::Header &header)
         odometry.child_frame_id = "body";
         Quaterniond tmp_Q;
         tmp_Q = Quaterniond(estimator.Rs[WINDOW_SIZE]);
-        odometry.pose.pose.position.x = -estimator.Ps[WINDOW_SIZE].y();
-        odometry.pose.pose.position.y = estimator.Ps[WINDOW_SIZE].x();
+        odometry.pose.pose.position.x = estimator.Ps[WINDOW_SIZE].x();
+        odometry.pose.pose.position.y = estimator.Ps[WINDOW_SIZE].y();
         odometry.pose.pose.position.z = estimator.Ps[WINDOW_SIZE].z();
         odometry.pose.pose.orientation.x = tmp_Q.x();
         odometry.pose.pose.orientation.y = tmp_Q.y();
@@ -324,11 +324,13 @@ void pubTF(const Estimator &estimator, const std_msgs::Header &header)
     q.setX(correct_q.x());
     q.setY(correct_q.y());
     q.setZ(correct_q.z());
-    static tf::Quaternion quat_rot_x = tf::createQuaternionFromRPY(-1.57079632679, 0, 0);
-    // static tf::Quaternion quat_rot_z = tf::createQuaternionFromRPY(0, 0, 3.14159265359);
-    q = q * quat_rot_x;
-    // q = q * quat_rot_z;
-    q = q.normalize();
+
+    // static tf::Quaternion quat_rot_x = tf::createQuaternionFromRPY(-1.57079632679, 0, 0);
+    // // static tf::Quaternion quat_rot_z = tf::createQuaternionFromRPY(0, 0, 3.14159265359);
+    // q = q * quat_rot_x;
+    // // q = q * quat_rot_z;
+    // q = q.normalize();
+
     transform.setRotation(q);
     br.sendTransform(tf::StampedTransform(transform, header.stamp, "map", "body"));
 

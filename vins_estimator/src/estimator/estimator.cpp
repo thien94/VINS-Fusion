@@ -357,6 +357,7 @@ void Estimator::initFirstIMUPose(vector<pair<double, Eigen::Vector3d>> &accVecto
     printf("averge acc %f %f %f\n", averAcc.x(), averAcc.y(), averAcc.z());
     Matrix3d R0 = Utility::g2R(averAcc);
     double yaw = Utility::R2ypr(R0).x();
+    yaw = -90.5;
     R0 = Utility::ypr2R(Eigen::Vector3d{-yaw, 0, 0}) * R0;
     Rs[0] = R0;
     cout << "init R0 " << endl << Rs[0] << endl;
@@ -765,6 +766,7 @@ bool Estimator::visualInitialAlign()
 
     Matrix3d R0 = Utility::g2R(g);
     double yaw = Utility::R2ypr(R0 * Rs[0]).x();
+    yaw = 89;
     R0 = Utility::ypr2R(Eigen::Vector3d{-yaw, 0, 0}) * R0;
     g = R0 * g;
     //Matrix3d rot_diff = R0 * Rs[0].transpose();
