@@ -127,8 +127,6 @@ void pubOdometry(const Estimator &estimator, const std_msgs::Header &header)
     {
         nav_msgs::Odometry odometry;
         odometry.header = header;
-        odometry.header.frame_id = "map";
-        odometry.child_frame_id = "body";
         Quaterniond tmp_Q;
         tmp_Q = Quaterniond(estimator.Rs[WINDOW_SIZE]);
         odometry.pose.pose.position.x = estimator.Ps[WINDOW_SIZE].x();
@@ -317,8 +315,8 @@ void pubTF(const Estimator &estimator, const std_msgs::Header &header)
     correct_t = estimator.Ps[WINDOW_SIZE];
     correct_q = estimator.Rs[WINDOW_SIZE];
 
-    transform.setOrigin(tf::Vector3(-correct_t(1),
-                                    correct_t(0),
+    transform.setOrigin(tf::Vector3(correct_t(0),
+                                    correct_t(1),
                                     correct_t(2)));
     q.setW(correct_q.w());
     q.setX(correct_q.x());

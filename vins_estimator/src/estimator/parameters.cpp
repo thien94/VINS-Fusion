@@ -45,6 +45,7 @@ int MIN_DIST;
 double F_THRESHOLD;
 int SHOW_TRACK;
 int FLOW_BACK;
+int FISHEYE;
 
 
 template <typename T>
@@ -194,6 +195,16 @@ void readParameters(std::string config_file)
         ESTIMATE_EXTRINSIC = 0;
         ESTIMATE_TD = 0;
         printf("no imu, fix extrinsic param; no time offset calibration\n");
+    }
+
+    FISHEYE = fsSettings["fisheye"];
+    if (FISHEYE)
+    {
+        ROS_INFO("Using fisheye mask");
+    }
+    else
+    {
+        ROS_INFO("NOT USING FISHEYE MASK");
     }
 
     fsSettings.release();
